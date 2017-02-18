@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block style %}
+
+h1 {
+  margin-bottom: 0;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+header p {
+  margin-top: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: {{ breakpoint }}) {
+  h1 { font-size: 6rem; }
+  header { margin-bottom: 4rem; }
+  header p {
+    margin-top: -.3em;
+    font-size: 2rem;
+  }
+}
+
+a {
+  width: 75%;
+  padding-bottom: 75%;
+  font-size: 2rem;
+  color: white;
+  text-shadow: 0 0 3px rgba(0,0,0,.6);
+  text-transform: uppercase;
+  background-image: url(http://placekitten.com/g/600/600);
+  background-size: cover;
+}
+
+#photo a { background-image: url(/media/photo.png); }
+
+nav p {
+  right: 0;
+  left: 0;
+}
+
+@media screen and (min-width: {{ breakpoint }}) {
+  #photo p { right: unset; }
+  #motion p { left: unset; }
+}
+
+{% endblock %}
+
+{% block header %}
+<h1>Christina Nava</h1>
+<p>a photo editor</p>
+{% endblock %}
+
+{% block main %}
+<nav class="clearfix">
+  <div class="sm-col sm-col-12 md-col-4 mb2" id="photo">
+    <a class="block relative mx-auto" href="photo.html">
+      <p class="absolute bottom-0 m1 bold">Photo</p>
+    </a>
+  </div>
+  <div class="sm-col sm-col-12 md-col-4 mb2" id="research">
+    <a class="block relative mx-auto" href="research.html">
+      <p class="absolute bottom-0 md-right-0 md-left-0 m1 bold">Research</p>
+    </a>
+  </div>
+  <div class="sm-col sm-col-12 md-col-4 mb2" id="motion">
+    <a class="block relative mx-auto" href="motion.html">
+      <p class="absolute bottom-0 md-right-0 m1 bold">Motion</p>
+    </a>
+  </div>
+</nav>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="https://necolas.github.io/normalize.css/5.0.0/normalize.css" rel="stylesheet">
+    <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
+
+    {% block head %}
+    {% endblock %}
+
+    <title>Christina Nava</title>
+
+    <style>
+      @font-face {
+        font-family: 'Campton';
+        src: url('/assets/fonts/campton-bold.woff2') format('woff2'),
+             url('/assets/fonts/campton-bold.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'Campton';
+        src: url('/assets/fonts/campton-light.woff2') format('woff2'),
+             url('/assets/fonts/campton-light.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      body {
+        font-family: "Campton", "Helvetica", "Arial", sans-serif;
+      }
+
+      {% block style %}
+      {% endblock %}
+
+    </style>
+
+  </head>
+  <body>
+    <header class="center max-width-4 mx-auto">
+      {% block header %}
+      {% endblock %}
+    </header>
+    <main class="center max-width-4 mx-auto">
+      {% block main %}
+      {% endblock %}
+    </main>
+  </body>
+</html>
