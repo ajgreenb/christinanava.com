@@ -81,7 +81,7 @@ def build_site():
     with open(os.path.join(SITE_PATH, 'motion.html'), 'w') as f:
         f.write(content)
 
-    content = env.get_template('about.html').render()
+    content = env.get_template('about.html').render(section = 'about')
     with open(os.path.join(SITE_PATH, 'about.html'), 'w') as f:
         f.write(content)
 

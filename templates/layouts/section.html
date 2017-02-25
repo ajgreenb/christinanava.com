@@ -1,15 +1,4 @@
-{% from 'partials/grid-item.html' import grid_item %}
-
 {% extends 'layouts/default.html' %}
-
-{% block head %}
-<link href="/assets/vendor/photoswipe/photoswipe.css" rel="stylesheet">
-<link href="/assets/vendor/photoswipe/default-skin/default-skin.css" rel="stylesheet">
-<script src="/assets/vendor/photoswipe/photoswipe.min.js"></script>
-<script src="/assets/vendor/photoswipe/photoswipe-ui-default.min.js"></script>
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
-{% endblock %}
 
 {% block style %}
 
@@ -46,28 +35,4 @@ header li.active {
     {%- endfor -%}
   </ul>
 </nav>
-{% endblock %}
-
-{% block main %}
-<div class="grid">
-  <div class="grid-sizer sm-col sm-col-12 md-col-3 m0"></div>
-  {% for image in images %}
-    {{ grid_item(*image) }}
-  {% endfor %}
-</div>
-{% include 'partials/photoswipe.html' %}
-{% endblock %}
-
-{% block script %}
-<script>
-  imagesLoaded('.grid', function () {
-    var iso = new Isotope('.grid', {
-      itemSelector: '.grid-item',
-      percentPosition: true,
-      masonry: {
-        columnWidth: '.grid-sizer',
-      },
-    });
-  });
-</script>
 {% endblock %}
