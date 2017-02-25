@@ -12,21 +12,45 @@
 {% endblock %}
 
 {% block style %}
-.grid-item,
-.grid-sizer {
-  width: 25%;
-  margin: 0;
+
+@media screen and (min-width: {{ breakpoint }}) {
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+  }
 }
 
-.grid-item img {
-  width: 95%;
-  height: 95%;
+header a {
+  color: black;
+  text-decoration: none;
 }
+
+header a:hover,
+header li.active {
+  color: #ff84b5;
+  border-bottom: 1px solid #ff84b5;
+}
+
+{% endblock %}
+
+{% block header %}
+<h1><a href="index.html">Christina Nava</a></h1>
+<nav>
+  <ul class="inline-block clearfix list-reset m0">
+    {% for s in [ 'photo', 'research', 'motion' ] %}
+    {% if s == section %}
+    <li class="left m1 active">{{ s }}</li>
+    {% else %}
+    <li class="left m1"><a href="{{ s }}.html">{{ s }}</a></li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
 {% endblock %}
 
 {% block main %}
 <div class="grid">
-  <div class="grid-sizer"></div>
+  <div class="grid-sizer sm-col sm-col-12 md-col-3 m0"></div>
   {% for image in images %}
     {{ grid_item(*image) }}
   {% endfor %}
