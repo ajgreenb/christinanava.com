@@ -36,14 +36,14 @@ header li.active {
 {% block header %}
 <h1><a href="index.html">Christina Nava</a></h1>
 <nav>
-  <ul class="inline-block clearfix list-reset m0">
-    {% for s in [ 'photo', 'research', 'motion' ] %}
-    {% if s == section %}
-    <li class="left m1 active">{{ s }}</li>
-    {% else %}
-    <li class="left m1"><a href="{{ s }}.html">{{ s }}</a></li>
-    {% endif %}
-    {% endfor %}
+  <ul class="list-reset m0">
+    {%- for s in [ 'photo', 'research', 'motion' ] -%}
+    {%- if s == section -%}
+    <li class="inline-block m1 active">{{ s }}</li>
+    {%- else -%}
+    <li class="inline-block m1"><a href="{{ s }}.html">{{ s }}</a></li>
+    {%- endif -%}
+    {%- endfor -%}
   </ul>
 </nav>
 {% endblock %}
