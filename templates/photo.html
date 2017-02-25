@@ -1,0 +1,69 @@
+{% extends 'layouts/section.html' %}
+
+{% block style %}
+{{ super() }}
+
+.subcategories {
+  background-color: rgba(255,132,181,.25);
+}
+
+@media screen and (min-width: {{ breakpoint }}) {
+  .subcategories {
+    display: inline-block;
+    border-radius: 5px;
+  }
+}
+
+.subcategories input { opacity: 0; }
+
+.subcategories input + span {
+  padding: 3px;
+  font-size: .875em;
+  border-radius: 3px;
+}
+
+.subcategories input:checked + span,
+.subcategories span:hover {
+  background-color: #ff84b5;
+}
+
+{% endblock %}
+
+{% block header %}
+<h1><a href="index.html">Christina Nava</a></h1>
+<nav>
+  <ul class="list-reset m0">
+    {%- for s in [ 'photo', 'research', 'motion' ] -%}
+    {%- if s == section -%}
+    <li class="inline-block m1 active">{{ s }}</li>
+    {%- else -%}
+    <li class="inline-block m1"><a href="{{ s }}.html">{{ s }}</a></li>
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+  <ul class="clearfix list-reset subcategories my1">
+  {%- for cat in (images.keys() | sort) -%}
+    <li class="inline-block m1"><label class="relative" for="{{ cat }}"><input name="filter" id="{{ cat }}" class="absolute" type="checkbox"><span>{{ cat | replace('-', ' ') }}</span></label></li>
+  {%- endfor -%}
+  </ul>
+</nav>
+<script>
+  var inputs = [].slice.call(document.querySelectorAll('input[name="filter"]'));
+  inputs.forEach(function (input) {
+    input.addEventListener('change', function () {
+      console.log('Changed');
+    });
+  });
+</script>
+{% endblock %}
+
+{% block main %}
+<div class="grid">
+  <div class="grid-sizer sm-col sm-col-12 md-col-3 m0"></div>
+  {% for subcategory, imgs in images.items() %}
+  {% for img in imgs %}
+    <div class="{{ subcategory }}">{{ grid_item(*image) }}</div>
+  {% endfor %}
+  {% endfor %}
+</div>
+{% endblock %}

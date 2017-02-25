@@ -35,6 +35,15 @@ def get_images(section):
 
     return tuples
 
+def get_photo_images():
+    retval = {}
+    rootdir = os.path.join(MEDIA_PATH, 'photo')
+    subcategories = os.listdir(rootdir)
+    for subcat in subcategories:
+        retval[subcat] = get_images('photo/' + subcat)
+
+    return retval
+
 def build_site():
 
     if os.path.isdir(SITE_PATH):
@@ -57,7 +66,12 @@ def build_site():
     with open(os.path.join(SITE_PATH, 'index.html'), 'w') as p:
         p.write(index)
 
-    for p in PAGES[1:]:
+    images = get_photo_images()
+    content = env.get_template('photo.html').render(images = images, section = 'photo')
+    with open(os.path.join(SITE_PATH, 'photo.html'), 'w') as f:
+        f.write(content)
+
+    for p in PAGES[2:]:
         name, _ = os.path.splitext(p)
         images = get_images(name)
         content = env.get_template(p).render(images = images, section = name)
