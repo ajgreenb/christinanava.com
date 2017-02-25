@@ -30,23 +30,12 @@
 {% endblock %}
 
 {% block header %}
-<h1><a href="index.html">Christina Nava</a></h1>
-<nav>
-  <ul class="list-reset m0">
-    {%- for s in [ 'photo', 'research', 'motion' ] -%}
-    {%- if s == section -%}
-    <li class="inline-block m1 active">{{ s }}</li>
-    {%- else -%}
-    <li class="inline-block m1"><a href="{{ s }}.html">{{ s }}</a></li>
-    {%- endif -%}
-    {%- endfor -%}
-  </ul>
-  <ul class="clearfix list-reset subcategories my1">
-  {%- for cat in (images.keys() | sort) -%}
-    <li class="inline-block m1"><label class="relative" for="{{ cat }}"><input name="filter" id="{{ cat }}" class="absolute" type="checkbox"><span>{{ cat | replace('-', ' ') }}</span></label></li>
-  {%- endfor -%}
-  </ul>
-</nav>
+{{ super() }}
+<ul class="clearfix list-reset subcategories my1">
+{%- for cat in (images.keys() | sort) -%}
+  <li class="inline-block m1"><label class="relative" for="{{ cat }}"><input name="filter" id="{{ cat }}" class="absolute" type="checkbox"><span>{{ cat | replace('-', ' ') }}</span></label></li>
+{%- endfor -%}
+</ul>
 <script>
   var inputs = [].slice.call(document.querySelectorAll('input[name="filter"]'));
   inputs.forEach(function (input) {

@@ -8,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 SITE_PATH = '_site'
 PAGE_PATH = 'pages'
 MEDIA_PATH = 'media'
-PAGES = [ 'index.html', 'photo.html', 'research.html', 'motion.html' ]
+PAGES = [ 'index.html', 'photo.html', 'research.html', 'motion.html', 'about.html' ]
 
 def listdir(d):
     return [ os.path.join(d, e) for e in os.listdir(d) ]
@@ -71,12 +71,19 @@ def build_site():
     with open(os.path.join(SITE_PATH, 'photo.html'), 'w') as f:
         f.write(content)
 
-    for p in PAGES[2:]:
-        name, _ = os.path.splitext(p)
-        images = get_images(name)
-        content = env.get_template(p).render(images = images, section = name)
-        with open(os.path.join(SITE_PATH, p), 'w') as f:
-            f.write(content)
+    images = get_images('research')
+    content = env.get_template('research.html').render(images = images, section = 'research')
+    with open(os.path.join(SITE_PATH, 'research.html'), 'w') as f:
+        f.write(content)
+
+    images = get_images('motion')
+    content = env.get_template('motion.html').render(images = images, section = 'motion')
+    with open(os.path.join(SITE_PATH, 'motion.html'), 'w') as f:
+        f.write(content)
+
+    content = env.get_template('about.html').render()
+    with open(os.path.join(SITE_PATH, 'about.html'), 'w') as f:
+        f.write(content)
 
 if __name__ == '__main__':
     build_site()
