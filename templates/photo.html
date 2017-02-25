@@ -47,14 +47,6 @@
   <li class="inline-block m1"><label class="relative" for="{{ cat }}"><input name="filter" id="{{ cat }}" class="absolute" type="checkbox"><span>{{ cat | replace('-', ' ') }}</span></label></li>
 {%- endfor -%}
 </ul>
-<script>
-  var inputs = [].slice.call(document.querySelectorAll('input[name="filter"]'));
-  inputs.forEach(function (input) {
-    input.addEventListener('change', function () {
-      console.log('Changed');
-    });
-  });
-</script>
 {% endblock %}
 
 {% block main %}
@@ -71,6 +63,7 @@
 
 {% block script %}
 <script>
+
   imagesLoaded('.grid', function () {
     var iso = new Isotope('.grid', {
       itemSelector: '.grid-item',
@@ -80,5 +73,13 @@
       },
     });
   });
+
+  var inputs = [].slice.call(document.querySelectorAll('input[name="filter"]'));
+  inputs.forEach(function (input) {
+    input.addEventListener('change', function () {
+      console.log('Changed');
+    });
+  });
+
 </script>
 {% endblock %}
