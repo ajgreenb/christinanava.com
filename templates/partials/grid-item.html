@@ -1,7 +1,7 @@
 {% macro grid_item(image_path, width, height) -%}
-<figure class="grid-item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+<figure class="grid-item sm-col sm-col-12 md-col-3 m0" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
   <a href="/{{ image_path }}.jpg" itemprop="contentUrl" data-size="{{ width }}x{{ height }}">
-    <img src="/{{ image_path }}.thumb.jpg" itemprop="thumbnail" alt="Image description" />
+    <img class="fit" src="/{{ image_path }}.thumb.jpg" itemprop="thumbnail" alt="Image description" />
   </a>
 </figure>
 {%- endmacro %}
