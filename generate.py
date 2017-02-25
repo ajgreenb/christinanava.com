@@ -1,4 +1,4 @@
-# import mimetypes
+import mimetypes
 import os
 import shutil
 
@@ -13,9 +13,9 @@ PAGES = [ 'index.html', 'photo.html', 'research.html', 'motion.html' ]
 def listdir(d):
     return [ os.path.join(d, e) for e in os.listdir(d) ]
 
-# def is_image(path):
-#     mime, _ = mimetypes.guess_type(path)
-#     return mime.startswith('image/')
+def is_image(path):
+    mime, _ = mimetypes.guess_type(path)
+    return mime.startswith('image/') if mime is not None else False
 
 def by_number(path):
     path = os.path.basename(path)
@@ -23,7 +23,7 @@ def by_number(path):
 
 def get_images(section):
     image_dir = os.path.join(MEDIA_PATH, section)
-    image_paths = listdir(image_dir)
+    image_paths = filter(is_image, listdir(image_dir))
     image_paths = filter(lambda p: 'thumb' not in p, image_paths)
     image_paths.sort(key = by_number)
     tuples = []
@@ -57,11 +57,12 @@ def build_site():
     with open(os.path.join(SITE_PATH, 'index.html'), 'w') as p:
         p.write(index)
 
-    images = get_images('research')
-    research = env.get_template('research.html').render(images = images)
-    with open(os.path.join(SITE_PATH, 'research.html'), 'w') as p:
-        p.write(research)
-
+    for p in PAGES[1:]:
+        name, _ = os.path.splitext(p)
+        images = get_images(name)
+        content = env.get_template(p).render(images = images, section = name)
+        with open(os.path.join(SITE_PATH, p), 'w') as f:
+            f.write(content)
 
 if __name__ == '__main__':
     build_site()
