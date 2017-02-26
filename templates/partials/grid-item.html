@@ -1,5 +1,5 @@
-{%- macro grid_item(image_path, width, height) -%}
-<figure class="grid-item sm-col sm-col-12 md-col-3 m0 p1" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+{%- macro grid_item(image_path, width, height, cls = None) -%}
+<figure class="grid-item sm-col sm-col-12 md-col-3 m0 p1{{ ' %s' % cls if cls }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
   <a href="/{{ image_path }}.png" itemprop="contentUrl" data-size="{{ width }}x{{ height }}">
     <img class="block fit" src="/{{ image_path }}.thumb.png" itemprop="thumbnail" />
   </a>
