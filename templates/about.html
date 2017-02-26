@@ -1,13 +1,5 @@
 {% extends 'layouts/section.html' %}
 
-{% block style %}
-{{ super() }}
-main > div { margin-top: .5em; }
-@media screen and (min-width: {{ breakpoint }}) {
-  main > div { margin-top: 2em; }
-}
-{% endblock %}
-
 {% block main %}
 <div class="clearfix">
   <div class="sm-col sm-col-12 md-col-5 px2">
