@@ -11,13 +11,10 @@ header p {
 @media screen and (min-width: {{ breakpoint }}) {
   h1 { font-size: 6rem; }
   header { margin-bottom: 4rem; }
-  header p {
-    margin-top: -.3em;
-    font-size: 2rem;
-  }
+  header p { font-size: 2rem; }
 }
 
-a {
+nav a {
   width: 75%;
   padding-bottom: 75%;
   font-size: 2rem;
@@ -43,8 +40,8 @@ nav p {
 {% endblock %}
 
 {% block header %}
-<h1>Christina Nava</h1>
-<p>a photo editor</p>
+<h1><a href="about.html">Christina Nava</a></h1>
+<p class="mt2">a photo editor</p>
 {% endblock %}
 
 {% block main %}

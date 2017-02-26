@@ -41,6 +41,17 @@
         text-transform: uppercase;
       }
 
+      header a {
+        color: black;
+        text-decoration: none;
+      }
+
+      header a:hover,
+      header li.active {
+        color: #ff84b5;
+        border-bottom: 1px solid #ff84b5;
+      }
+
       {% block style %}
       {% endblock %}
 
