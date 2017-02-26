@@ -53,7 +53,7 @@
 <div class="grid">
   <div class="grid-sizer sm-col sm-col-12 md-col-3 m0"></div>
   {% for subcategory, imgs in images.items() %}
-  {% for img in imgs %}
+  {% for image in imgs %}
     <div class="{{ subcategory }}">{{ grid_item(*image) }}</div>
   {% endfor %}
   {% endfor %}
