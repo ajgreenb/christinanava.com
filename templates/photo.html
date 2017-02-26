@@ -44,7 +44,7 @@
 {{ super() }}
 <ul class="clearfix list-reset subcategories my1">
 {%- for cat in (images.keys() | sort) -%}
-  <li class="inline-block m1"><label class="relative" for="{{ cat }}"><input name="filter" id="{{ cat }}" class="absolute" type="checkbox"><span>{{ cat | replace('-', ' ') }}</span></label></li>
+  <li class="inline-block m1"><label class="relative" for="{{ cat }}"><input value=".{{ cat }}" id="{{ cat }}" class="absolute" type="checkbox"><span>{{ cat | replace('-', ' ') }}</span></label></li>
 {%- endfor -%}
 </ul>
 {% endblock %}
@@ -64,22 +64,43 @@
 {% block script %}
 <script>
 
-  imagesLoaded('.grid', function () {
-    var iso = new Isotope('.grid', {
-      itemSelector: '.grid-item',
-      percentPosition: true,
-      masonry: {
-        columnWidth: '.grid-sizer',
-      },
-    });
-  });
+  (function () {
 
-  var inputs = [].slice.call(document.querySelectorAll('input[name="filter"]'));
-  inputs.forEach(function (input) {
-    input.addEventListener('change', function () {
-      console.log('Changed');
+    var iso;
+
+    imagesLoaded('.grid', function () {
+      iso = new Isotope('.grid', {
+        itemSelector: '.grid-item',
+        percentPosition: true,
+        masonry: {
+          columnWidth: '.grid-sizer',
+        },
+      });
+      console.log(iso);
     });
-  });
+
+    var slice = Function.call.bind([].slice);
+    var inputs = slice(document.querySelectorAll('input[type="checkbox"]'));
+    inputs.forEach(function (input) {
+      input.addEventListener('change', function () {
+
+        var inclusives = [];
+        inputs.forEach(function (input) {
+          if (input.checked) {
+            inclusives.push(input.value);
+          }
+        });
+
+        var filterValue = inclusives.length
+          ? inclusives.join(', ')
+          : '*';
+
+        iso.arrange({ filter: filterValue });
+
+      });
+    });
+
+  })();
 
 </script>
 {% endblock %}
