@@ -5,6 +5,8 @@ import shutil
 from PIL import Image
 LANCZOS = Image.LANCZOS
 
+from generate import listdir
+
 full_width = 1500
 mobile_width = 900
 thumb_width = 400
@@ -46,6 +48,10 @@ for dirpath, dirnames, filenames in os.walk(MEDIA_DIR):
     # and thus resized.
     if dirpath == MEDIA_DIR: continue
 
+    # A list of already processed files in this directory path.
+    processed_dirpath = '.' + dirpath
+    processed_filenames = listdir(processed_dirpath)
+
     # Parse out full-sized images (exclude thumbnails.)
     pngs = filter(is_original, filenames)
 
@@ -54,9 +60,9 @@ for dirpath, dirnames, filenames in os.walk(MEDIA_DIR):
 
         name, _ = os.path.splitext(png_name)
 
-        has_full = has(r'{0}-\d+x\d+\.png$'.format(name), filenames)
-        has_mobile = has(r'{0}-\d+x\d+\.mobile\.png$'.format(name), filenames)
-        has_thumb = name + '.thumb.png' in filenames
+        has_full = has(r'{0}-\d+x\d+\.png$'.format(name), processed_filenames)
+        has_mobile = has(r'{0}-\d+x\d+\.mobile\.png$'.format(name), processed_filenames)
+        has_thumb = name + '.thumb.png' in processed_filenames
 
         # If all resized versions already exist, skip this PNG.
         if has_full and has_mobile and has_thumb: continue
@@ -69,29 +75,29 @@ for dirpath, dirnames, filenames in os.walk(MEDIA_DIR):
 
             orig_width, orig_height = img.size
 
-            full_path   = os.path.join(dirpath, name + '-{0}x{1}.png')
-            mobile_path = os.path.join(dirpath, name + '-{0}x{1}.mobile.png')
-            thumb_path  = os.path.join(dirpath, name + '.thumb.png')
+            full_path   = '.' + os.path.join(dirpath, name + '-{0}x{1}.png')
+            mobile_path = '.' + os.path.join(dirpath, name + '-{0}x{1}.mobile.png')
+            thumb_path  = '.' + os.path.join(dirpath, name + '.thumb.png')
 
             if not has_full:
                 # Resize over-sized images.
                 if orig_width > full_width:
                     full_height = int(round(orig_height * full_width / orig_width))
                     full = img.resize((full_width, full_height), LANCZOS)
-                    full.save('.' + full_path.format(full_width, full_height))
+                    full.save(full_path.format(full_width, full_height))
                     full.close()
                 else:
-                    img.save('.' + full_path.format(orig_width, orig_height))
+                    img.save(full_path.format(orig_width, orig_height))
 
             if not has_mobile:
                 # Generate smaller images for mobile phones.
                 if orig_width > mobile_width:
                     mobile_height = int(round(orig_height * mobile_width / orig_width))
                     mobile = img.resize((mobile_width, mobile_height), LANCZOS)
-                    mobile.save('.' + mobile_path.format(mobile_width, mobile_height))
+                    mobile.save(mobile_path.format(mobile_width, mobile_height))
                     mobile.close()
                 else:
-                    img.save('.' + mobile_path.format(orig_width, orig_height))
+                    img.save(mobile_path.format(orig_width, orig_height))
 
 
             if not has_thumb:
@@ -100,6 +106,6 @@ for dirpath, dirnames, filenames in os.walk(MEDIA_DIR):
                     thumb_height = int(round(orig_height * thumb_width / orig_width))
                     # Thumbnail method resizes the image in place.
                     img.thumbnail((thumb_width, thumb_height), LANCZOS)
-                    img.save('.' + thumb_path)
+                    img.save(thumb_path)
                 else:
-                    img.save('.' + thumb_path)
+                    img.save(thumb_path)
