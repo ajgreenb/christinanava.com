@@ -103,6 +103,9 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
         continue;
       }
 
+      // Do not include Isotope-filtered images in the gallery.
+      if (childNodes[i].style.display === 'none') { continue; }
+
       if(childNodes[i] === clickedListItem) {
         index = nodeIndex;
         break;
