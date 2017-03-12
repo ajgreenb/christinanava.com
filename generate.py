@@ -25,7 +25,7 @@ def sort_tuple(s):
 
 def sort_tuples_by_name(s):
     s = os.path.basename(s[0])
-    return int(s.split('-')[0])
+    return s.split('-')[0]
 
 def get_images(section):
     image_dir = os.path.join(MEDIA_PATH, section)
