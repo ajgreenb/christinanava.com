@@ -28,7 +28,7 @@ def has(expr, lst):
     """
 
     for o in lst:
-        if re.match(expr, o) is not None:
+        if re.search(expr, o) is not None:
             return True
     return False
 
@@ -75,7 +75,7 @@ for dirpath, dirnames, filenames in os.walk(MEDIA_DIR):
 
         has_full = has(r'{0}-\d+x\d+\.png$'.format(name), processed_filenames)
         has_mobile = has(r'{0}-\d+x\d+\.mobile\.png$'.format(name), processed_filenames)
-        has_thumb = name + '.thumb.png' in processed_filenames
+        has_thumb = has(r'{0}.thumb.png'.format(name), processed_filenames)
 
         # If all resized versions already exist, skip this PNG.
         if has_full and has_mobile and has_thumb: continue
