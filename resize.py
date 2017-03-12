@@ -32,6 +32,18 @@ def has(expr, lst):
             return True
     return False
 
+def slugify(value):
+    """
+    Normalizes string, converts to lowercase, removes non-alpha characters,
+    and converts spaces to hyphens.
+
+    Adapted from the Django project.
+    """
+
+    value = re.sub(r'[^\w\s_]', '', value).strip().lower()
+    value = re.sub(r'[_\s]+', '_', value)
+    return value
+
 MEDIA_DIR = 'media'
 PROCESSED_DIR = '.' + MEDIA_DIR
 if not os.path.isdir(PROCESSED_DIR):
@@ -59,6 +71,7 @@ for dirpath, dirnames, filenames in os.walk(MEDIA_DIR):
     for png_name in pngs:
 
         name, _ = os.path.splitext(png_name)
+        name = slugify(name)
 
         has_full = has(r'{0}-\d+x\d+\.png$'.format(name), processed_filenames)
         has_mobile = has(r'{0}-\d+x\d+\.mobile\.png$'.format(name), processed_filenames)
