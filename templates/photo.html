@@ -44,7 +44,7 @@
 {{ super() }}
 <ul class="clearfix list-reset subcategories my1">
 {%- for cat in (images.keys() | sort) -%}
-  <li class="inline-block m1"><label class="relative" for="{{ cat }}"><input value=".{{ cat }}" id="{{ cat }}" class="absolute" type="checkbox"><span>{{ cat | replace('-', ' ') }}</span></label></li>
+  <li class="inline-block m1"><label class="relative" for="{{ cat }}"><input value=".{{ cat }}" id="{{ cat }}" class="absolute" type="checkbox"><span>{{ cat | replace('_', ' ') }}</span></label></li>
 {%- endfor -%}
 </ul>
 {% endblock %}
