@@ -1,7 +1,7 @@
-{%- macro grid_item(image_path, width, height, cls = None) -%}
+{%- macro grid_item(image_path, mobile_path, thumb_path, cls = None) -%}
 <figure class="grid-item sm-col sm-col-12 md-col-3 m0 p1{{ ' %s' % cls if cls }}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-  <a href="/{{ image_path }}.png" itemprop="contentUrl" data-size="{{ width }}x{{ height }}">
-    <img class="block fit" src="/{{ image_path }}.thumb.png" itemprop="thumbnail" />
+  <a data-href-full="/{{ image_path }}" data-href-mobile="/{{ mobile_path }}" itemprop="contentUrl">
+    <img class="block fit" src="/{{ thumb_path }}" itemprop="thumbnail" />
   </a>
 </figure>
 {%- endmacro -%}

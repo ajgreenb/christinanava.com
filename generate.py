@@ -1,3 +1,4 @@
+import itertools
 import mimetypes
 import os
 import shutil
@@ -7,7 +8,7 @@ from jinja2 import Environment, FileSystemLoader
 
 SITE_PATH = '_site'
 PAGE_PATH = 'pages'
-MEDIA_PATH = 'media'
+MEDIA_PATH = '.media'
 PAGES = [ 'index.html', 'photo.html', 'research.html', 'motion.html', 'about.html' ]
 
 def listdir(d):
@@ -17,23 +18,22 @@ def is_image(path):
     mime, _ = mimetypes.guess_type(path)
     return mime.startswith('image/') if mime is not None else False
 
-def by_number(path):
-    path = os.path.basename(path)
-    return int(path.split('.')[0])
+def sort_tuple(s):
+    if 'thumb' in s: return 2
+    if 'mobile' in s: return 1
+    return 0
+
+def sort_tuples_by_name(s):
+    s = os.path.basename(s[0])
+    return int(s.split('-')[0])
 
 def get_images(section):
     image_dir = os.path.join(MEDIA_PATH, section)
     image_paths = filter(is_image, listdir(image_dir))
-    image_paths = filter(lambda p: 'thumb' not in p, image_paths)
-    image_paths.sort(key = by_number)
-    tuples = []
-    for ip in image_paths:
-        fname, _ = os.path.splitext(ip)
-        with Image.open(ip) as img:
-            width, height = img.size
-            tuples.append((fname, width, height))
-
-    return tuples
+    image_paths = [ ip[1:] for ip in image_paths ]
+    keyfunc = lambda s: os.path.basename(s).split('.')[0].split('-')[0]
+    tuples = [ sorted(list(g), key = sort_tuple) for k, g in itertools.groupby(image_paths, keyfunc) ]
+    return sorted(tuples, key = sort_tuples_by_name)
 
 def get_photo_images():
     retval = {}
@@ -52,7 +52,7 @@ def build_site():
     os.mkdir(SITE_PATH)
 
     # Copy static files to _site.
-    shutil.copytree('media', os.path.join(SITE_PATH, 'media'))
+    shutil.copytree(MEDIA_PATH, os.path.join(SITE_PATH, 'media'))
     shutil.copytree('assets', os.path.join(SITE_PATH, 'assets'))
 
     loader = FileSystemLoader('./templates')
