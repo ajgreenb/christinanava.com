@@ -24,6 +24,11 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
         continue;
       }
 
+      // Do not include Isotope-filtered images in the gallery.
+      if (figureEl.style.display === 'none') {
+        continue;
+      }
+
       linkEl = figureEl.children[0]; // <a> element
 
       pathFull = linkEl.getAttribute('data-href-full');
