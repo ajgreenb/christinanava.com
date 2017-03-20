@@ -1,1 +1,23 @@
 {% extends 'layouts/section.html' %}
+
+{% block style %}
+main div { margin-bottom: .5em; }
+@media screen and (min-width: {{ breakpoint }}) {
+  main div { margin-bottom: 2em; }
+}
+{% endblock %}
+
+{% block main %}
+<div class="fit">
+  <iframe src="https://player.vimeo.com/video/209135069" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<div class="fit">
+  <iframe src="https://player.vimeo.com/video/209135064" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<div class="fit">
+  <iframe src="https://player.vimeo.com/video/209135055" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<div class="fit">
+  <iframe src="https://player.vimeo.com/video/209135046" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+{% endblock %}
